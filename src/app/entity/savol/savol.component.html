@@ -1,0 +1,132 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Savollar</mat-card-title>
+    <mat-card-subtitle>Savollar bilan ishlash bo'limi</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-accordion color="light" displayMode="default" [multi]="true" [hideToggle]="false">
+      <mat-expansion-panel [hideToggle]="false" [(expanded)]="formOchiq">
+        <mat-expansion-panel-header>Yangi Savol qo'shish
+
+          <mat-icon class="mat-18">add</mat-icon>
+        </mat-expansion-panel-header>
+        <form [formGroup]="savolForm" (ngSubmit)="saqlash()">
+          <mat-form-field *ngIf='tahrirRejim' appearance="outline">
+            <mat-label>ID</mat-label>
+            <input formControlName='id' readonly matInput placeholder="ID">
+            <mat-hint>ID</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Savol matni</mat-label>
+            <input formControlName='matn' matInput placeholder="Matn . . .">
+            <mat-hint>Savol matnini kiriting</mat-hint>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Fan</mat-label>
+            <mat-select formControlName="fan" placeholder="">
+              <mat-option *ngFor="let f of fanlar" [value]="f.id">{{f.nom}}</mat-option>
+            </mat-select>
+            <mat-hint>Fanni tanlang</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Daraja</mat-label>
+            <mat-select formControlName="savolDaraja" placeholder="">
+              <mat-option value="ODDIY">Sodda daraja</mat-option>
+              <mat-option value="ORTA">O'rta daraja</mat-option>
+              <mat-option value="MURAKKAB">Murakkab daraja</mat-option>
+            </mat-select>
+            <mat-hint>Darajani tanlang</mat-hint>
+          </mat-form-field>
+
+
+          <button [disabled]="savolForm.invalid || surovBajarilmoqda" mat-raised-button color="primary" type="submit">
+            <mat-spinner *ngIf="surovBajarilmoqda" diameter="20" color="accent"></mat-spinner>
+            Saqlash
+          </button>
+          <button mat-raised-button color="accent" type="reset" (click)="tozalash()">Bekor qilish</button>
+        </form>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-form-field appearance="outline">
+      <mat-label>Filter</mat-label>
+      <input (input)="load($event.target)" matInput placeholder="Filter . . .">
+      <mat-hint>Kalit so'zni kiriting</mat-hint>
+    </mat-form-field>
+    <table mat-table  matSort matSortActive="id" matSortDisableClear matSortDirection="asc"  [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <!--- Note that these columns can be defined in any order.
+                    The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> ID. </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="matn">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Savol matni </th>
+        <td mat-cell *matCellDef="let element"> {{element.matn}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="fan">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Fan </th>
+        <td mat-cell *matCellDef="let element"> {{element.fan.nom}} </td>
+      </ng-container>
+      <!-- Weight Column -->
+      <ng-container matColumnDef="savol-daraja">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Savol dajarasi </th>
+        <td mat-cell *matCellDef="let element">
+          <ng-container [ngSwitch]="element.savolDaraja">
+            <span style="color: blue;" *ngSwitchCase="'ODDIY'">
+                Sodda daraja
+            </span>
+            <span style="color: green;" *ngSwitchCase="'ORTA'">
+                O'rta daraja
+            </span>
+            <span style="color: red;" *ngSwitchCase="'MURAKKAB'">
+                Murakkab daraja
+            </span>
+            <span *ngSwitchDefault>
+                -
+            </span>
+          </ng-container>
+          
+           </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="amal">
+        <th mat-header-cell *matHeaderCellDef> Amallar </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-button (click)="variantlar(element)">
+            <mat-icon color="accent" class="mat-18">view_list</mat-icon>
+            Variantlar
+          </button>
+          <button mat-button (click)="tahrir(element)">
+            <mat-icon color="primary" class="mat-18">edit</mat-icon>
+          </button>
+          <button mat-button (click)="ochirish(element)">
+            <mat-icon color="accent" class="mat-18">delete</mat-icon>
+          </button>
+
+
+
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+    <mat-paginator (page)="load()" #paginator [length]="length" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+    </mat-paginator>
+
+
+  </mat-card-content>
+
+</mat-card>
