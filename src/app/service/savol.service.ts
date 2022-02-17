@@ -20,6 +20,9 @@ export class SavolService {
       params: params
     });
   }
+  getFile(id: number): Observable<Blob>{
+      return this.http.get(this.api + "/" + id + "/download",  { responseType: 'blob' });
+  }
   getById(id: number): Observable<Savol>{
     return this.http.get<Savol>(this.api + "/" + id);
   }
