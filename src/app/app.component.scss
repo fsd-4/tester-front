@@ -6,8 +6,9 @@
   
   .main {
     display: flex;
-    min-height: 92vh;
-  
+    min-height: 90vh;
+    max-height: 95vh;
+    overflow: auto; 
   }
   
   .example-sidenav {

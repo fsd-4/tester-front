@@ -1,17 +1,107 @@
+<mat-card-header>
+    <mat-card-title>{{savol?.matn}}</mat-card-title>
+    <mat-card-subtitle>Fan: {{savol?.fan?.nom}}</mat-card-subtitle>
+</mat-card-header>
 
-    <mat-card-header>
-        <mat-card-title>{{savol?.matn}}</mat-card-title>
-        <mat-card-subtitle>Fan: {{savol?.fan?.nom}}</mat-card-subtitle>
-    </mat-card-header>
-
-    <mat-card-content>
-      <img #img [src]="rasmUrl" alt="">
+<mat-card-content>
 
 
+    <mat-card>
 
 
-    </mat-card-content>
-    <mat-card-actions align="start">
-        <button mat-raised-button color="primary" mat-dialog-close="">Yopish</button>
-        
-    </mat-card-actions>
+        <form [formGroup]="variantForm" (ngSubmit)="saqlash()">
+            <mat-form-field *ngIf='tahrirRejim' appearance="outline">
+                <mat-label>ID</mat-label>
+                <input formControlName='id' readonly matInput placeholder="ID">
+                <mat-hint>ID</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>variant matni</mat-label>
+                <input formControlName='matn' matInput placeholder="Matn . . .">
+                <mat-hint>variant matnini kiriting</mat-hint>
+            </mat-form-field>
+            <mat-checkbox formControlName='tugri'> To'g'ri
+            </mat-checkbox>
+            <br>
+
+
+
+
+
+
+            <button [disabled]="variantForm.invalid || surovBajarilmoqda" mat-raised-button color="primary"
+                type="submit">
+                <mat-spinner *ngIf="surovBajarilmoqda" diameter="20" color="accent"></mat-spinner>
+                Saqlash
+            </button>
+            <button mat-raised-button color="accent" type="reset" (click)="tozalash()">Bekor qilish</button>
+        </form>
+<mat-divider></mat-divider>
+
+        <table mat-table matSort matSortActive="id" matSortDisableClear matSortDirection="asc"
+            [dataSource]="savol.variantlar" class="mat-elevation-z8">
+
+            <!--- Note that these columns can be defined in any order.
+                              The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> ID. </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="matn">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> variant matni </th>
+                <td mat-cell *matCellDef="let element"> {{element.matn}} </td>
+            </ng-container>
+
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="tugri">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> To'g'ri </th>
+                <td mat-cell *matCellDef="let element">
+
+                    <span style="color: red;" *ngIf="!element.tugri">
+                        <mat-icon class="mat-18">cancel</mat-icon>
+                    </span>
+                    <span style="color: green;" *ngIf="element.tugri">
+                        <mat-icon class="mat-18">check</mat-icon>
+                    </span>
+
+
+                </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="amal">
+                <th mat-header-cell *matHeaderCellDef> Amallar </th>
+                <td mat-cell *matCellDef="let element">
+
+                    <button mat-button (click)="tahrir(element)">
+                        <mat-icon color="primary" class="mat-18">edit</mat-icon>
+                    </button>
+                    <button mat-button (click)="ochirish(element)">
+                        <mat-icon color="accent" class="mat-18">delete</mat-icon>
+                    </button>
+
+
+
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+
+    </mat-card>
+
+
+
+
+</mat-card-content>
+<mat-card-actions align="start">
+    <button mat-raised-button color="primary" mat-dialog-close="">Yopish</button>
+
+</mat-card-actions>
