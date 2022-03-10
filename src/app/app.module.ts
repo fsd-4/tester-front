@@ -42,6 +42,10 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { SavolComponent } from './entity/savol/savol.component';
 import { DeleteDialog } from './shared/delete-dialog.component';
 import { VariantComponent } from './entity/savol/variant/variant.component';
+import { UserComponent } from './entity/user/user.component';
+import {MatNativeDateModule} from '@angular/material/core';
+
+
 
 @NgModule({
   declarations: [
@@ -49,7 +53,8 @@ import { VariantComponent } from './entity/savol/variant/variant.component';
     FanComponent,
     SavolComponent,
     DeleteDialog,
-    VariantComponent
+    VariantComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -88,7 +93,9 @@ import { VariantComponent } from './entity/savol/variant/variant.component';
     MatSnackBarModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatNativeDateModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
