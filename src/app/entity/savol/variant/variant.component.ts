@@ -1,6 +1,6 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Savol } from 'src/app/model/savol';
 import { SavolService } from 'src/app/service/savol.service';
@@ -20,13 +20,16 @@ export class VariantComponent implements OnInit {
   tahrirRejim = false;
   surovBajarilmoqda = false;
   formOchiq = false;
-
-  displayedColumns: string[] = ['id', 'matn', 'tugri', 'amal'];
+  variantlar: any = [];
+  displayedColumns: string[] = ['position', 'matn', 'tugri', 'amal'];
 
   constructor(private fb: FormBuilder,
-
+    private dialog: MatDialog,
     private snakBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public savol: Savol, private savolService: SavolService) { }
+    private detecter: ChangeDetectorRef,
+    @Inject(MAT_DIALOG_DATA) public savol: Savol, private savolService: SavolService) {
+    this.variantlar = savol.variantlar;
+  }
 
   ngOnInit(): void {
     this.variantForm = this.fb.group({
@@ -66,10 +69,11 @@ export class VariantComponent implements OnInit {
       surov = this.savolService.createVariant(variant);
 
 
-    surov.subscribe((data: any) => {
+    surov.subscribe((data: Savol) => {
       this.tozalash();
       this.surovBajarilmoqda = false;
-      this.savol = data;
+      this.variantlar = data.variantlar;
+
     },
       (error: any) => {
         this.snakBar.open("Xatolik ro'y berdi", "Ok");
@@ -87,6 +91,19 @@ export class VariantComponent implements OnInit {
     this.formOchiq = true;
   }
   ochirish(variant: any) {
+    this.dialog.open(DeleteDialog).afterClosed().subscribe(data => {
+      if (data) {
+        this.savolService.deleteVariant(variant.id).subscribe(data => {
+
+          this.variantlar.splice(this.variantlar.indexOf(variant), 1);
+          this.variantlar = [...this.variantlar];
+          this.detecter.detectChanges();
+        })
+      }
+
+    })
+
+
 
   }
   tozalash() {

@@ -9,7 +9,7 @@ import { Savol } from '../model/savol';
   providedIn: 'root'
 })
 export class SavolService {
- 
+
 
   
   api = environment.baseApi + "/api/savol";
@@ -43,4 +43,9 @@ export class SavolService {
   updateVariant(variant: any): any {
     return this.http.put<Savol>(this.api + "/variant", variant);
   }
+
+  deleteVariant(id: any) {
+    return this.http.delete<any>(this.api + "/variant/" + id);
+  }
+ 
 }
