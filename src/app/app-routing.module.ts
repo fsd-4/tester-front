@@ -1,22 +1,32 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FanComponent } from './entity/fan/fan.component';
-import { SavolComponent } from './entity/savol/savol.component';
-import { UserComponent } from './entity/user/user.component';
+import { HomeComponent } from './public/home/home.component';
+import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
-    path: 'fan',
-    component: FanComponent
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
   },
   {
-    path: 'savol',
-    component: SavolComponent
+    path: 'home',
+    component: HomeComponent,
+
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import("./admin/admin.module").then(m => m.AdminModule)
   },
   {
     path: 'user',
-    component: UserComponent
+    loadChildren: () => import("./user/user.module").then(m => m.UserModule)
   },
+  {
+    path: "**",
+    component: PageNotFoundComponent
+  }
+
 ];
 
 @NgModule({

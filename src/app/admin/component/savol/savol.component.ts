@@ -8,7 +8,7 @@ import { Savol } from 'src/app/model/savol';
 import { FanService } from 'src/app/service/fan.service';
 import { SavolService } from 'src/app/service/savol.service';
 import { DeleteDialog } from 'src/app/shared/delete-dialog.component';
-import { VariantComponent } from './variant/variant.component';
+import { VariantComponent } from '../variant/variant.component';
 
 @Component({
   selector: 'app-savol',
