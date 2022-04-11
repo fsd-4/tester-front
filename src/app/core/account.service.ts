@@ -13,10 +13,8 @@ export class AccountService {
 
   constructor(private http: HttpClient) { }
 
-
-
   login(loginParol: any): Observable<any> {
-    return this.http.post(this.api + "/login", loginParol)
+    return this.http.post(this.api + "/auth", loginParol)
     .pipe(
       map((data:any)=>{
         if(data && data.token){
@@ -29,6 +27,10 @@ export class AccountService {
 
   register(user: any): Observable<any> {
     return this.http.post(this.api + "/register", user);
+  }
+
+  identity(){
+    return this.http.get(this.api+"/current");
   }
 
 }

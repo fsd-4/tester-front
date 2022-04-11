@@ -16,6 +16,8 @@ import { HomeComponent } from './public/home/home.component';
 import { LoginComponent } from './public/login/login.component';
 import { material_imports } from './shared/material-import';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RegisterComponent } from './public/register/register.component';
 
 
 
@@ -25,7 +27,8 @@ import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.co
     DeleteDialog,
     HomeComponent,
     LoginComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,8 @@ import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.co
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ...material_imports
+    ...material_imports,
+    NgbModule
   ],
   providers: [
     {
