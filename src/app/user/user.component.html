@@ -7,7 +7,7 @@
             </mat-icon>
         </button>
 
-        <span>Tester</span>
+        <span>{{user?.ism}} {{user.familiya}}</span>
 
         <span class="example-spacer"></span>
 
@@ -37,26 +37,26 @@
 
             <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['dashboard']">
                 <mat-icon class="sidenav-icon">dashboard</mat-icon>
-                Bosh sahifa
+                Profil
             </a>
             <mat-divider></mat-divider>
             <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['fan']">
                 <mat-icon class="sidenav-icon">
                     show_chart
                 </mat-icon>
-                Fan
+                Reyting
             </a>
             <mat-divider></mat-divider>
 
             <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['savol']">
                 <mat-icon class="sidenav-icon">query_builder</mat-icon>
-                Savollar
+               Meining natijalarim
             </a>
             <mat-divider></mat-divider>
 
             <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['user']">
                 <mat-icon class="sidenav-icon">verified_user</mat-icon>
-                User
+               Do'stalrim
             </a>
             <mat-divider></mat-divider>
         </mat-nav-list>
