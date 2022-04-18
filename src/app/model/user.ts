@@ -9,5 +9,6 @@ export interface User {
   regVaqt:Date;
   oxirgiTashrif:Date;
   role:Role;
+  rasm: any;
 
 }

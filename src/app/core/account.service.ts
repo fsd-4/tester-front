@@ -9,8 +9,8 @@ import { User } from '../model/user';
   providedIn: 'root'
 })
 export class AccountService {
- 
- 
+
+
   api = environment.baseApi + "/api/account";
   private currentUser: User | undefined;
 
@@ -33,6 +33,9 @@ export class AccountService {
   register(user: any): Observable<any> {
     return this.http.post(this.api + "/register", user);
   }
+  update(user: any): Observable<any> {
+    return this.http.post(this.api + "/update", user);
+  }
 
   identity(){
     if(!this.userCache$) this.userCache$ = this.http.get<User>(this.api+"/current")
@@ -51,11 +54,11 @@ export class AccountService {
   }
   hasRole(role: Role[]): boolean  {
     console.log(role, this.currentUser);
-    
+
     if(this.currentUser){
         return role.includes(this.currentUser.role);
     }
     return false;
-    
+
   }
 }

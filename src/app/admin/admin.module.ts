@@ -10,6 +10,7 @@ import { SavolComponent } from './component/savol/savol.component';
 import { VariantComponent } from './component/variant/variant.component';
 import { UserComponent } from './component/user/user.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
+import { ProfilComponent } from './component/profil/profil.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
     UserComponent,
     SavolComponent,
     VariantComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProfilComponent
   ],
   imports: [
     CommonModule,

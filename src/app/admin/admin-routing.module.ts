@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { FanComponent } from './component/fan/fan.component';
+import { ProfilComponent } from './component/profil/profil.component';
 import { SavolComponent } from './component/savol/savol.component';
 import { UserComponent } from './component/user/user.component';
 
@@ -14,7 +15,7 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: 'dashboard',
-      
+
       },
       {
         path: 'dashboard',
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: 'user',
         component: UserComponent
+      },
+      {
+        path: 'profil',
+        component: ProfilComponent
       },
     ]
   },
